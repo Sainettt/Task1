@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
-import ProductList from '../components/ProductList';  // Компонент для списка продуктов
+import React, { useState, useEffect } from 'react';
+import ProductList from '../components/ProductList';
 import { styles } from '../styles/styles';
 import { View, Text, TextInput, Button } from 'react-native';
+import { filterByPrice, sortProducts } from '../components/FilterUtils';
 
 export default function HomeScreen() {
   const [products, setProducts] = useState([]);
   const [newProductName, setNewProductName] = useState('');
   const [newProductPrice, setNewProductPrice] = useState('');
   const [newProductStore, setNewProductStore] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
-  // Функция добавления нового продукта
+  // Фильтрация срабатывает автоматически при изменении значений
+  useEffect(() => {
+    if (minPrice || maxPrice) {
+      setFilteredProducts(sortProducts(filterByPrice(products, minPrice, maxPrice)));
+    } else {
+      setFilteredProducts(sortProducts(products)); // Если поля пустые — показываем весь список
+    }
+  }, [minPrice, maxPrice, products]);
+
   const addProduct = () => {
     if (!newProductName || !newProductPrice || !newProductStore) {
       alert('Wszystkie pola muszą być wypełnione!');
@@ -18,15 +30,15 @@ export default function HomeScreen() {
 
     const newProduct = {
       name: newProductName,
-      price: newProductPrice,
+      price: parseFloat(newProductPrice),
       store: newProductStore,
-      purchased: false,  // Продукт по умолчанию не куплен
+      purchased: false,
     };
 
     const updatedProducts = products.length > 0 ? [
       {
         title: 'Zakupy',
-        data: [newProduct, ...products[0].data], // Добавляем новый продукт в первую секцию
+        data: sortProducts([{ ...products[0], data: [newProduct, ...products[0].data] }])[0].data,
       },
     ] : [{
       title: 'Zakupy',
@@ -43,7 +55,6 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Text style={styles.header}>Lista Zakupów</Text>
 
-      {/* Форма добавления продукта */}
       <View style={styles.addProduct}>
         <TextInput
           style={styles.input}
@@ -66,10 +77,26 @@ export default function HomeScreen() {
         />
       </View>
 
-      {/* Отображаем список продуктов */}
-      <ProductList products={products} setProducts={setProducts} />
+      {/* Фильтр по цене (без кнопки "Resetuj") */}
+      <View style={styles.filterContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Minimalna cena"
+          value={minPrice}
+          keyboardType="numeric"
+          onChangeText={setMinPrice}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Maksymalna cena"
+          value={maxPrice}
+          keyboardType="numeric"
+          onChangeText={setMaxPrice}
+        />
+      </View>
 
-      {/* Кнопка добавления продукта внизу */}
+      <ProductList products={filteredProducts} setProducts={setProducts} />
+
       <View style={styles.addButtonContainer}>
         <Button title="Dodaj Produkt" onPress={addProduct} />
       </View>

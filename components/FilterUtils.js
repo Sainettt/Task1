@@ -1,0 +1,19 @@
+// Фильтрация по цене
+export const filterByPrice = (products, minPrice, maxPrice) => {
+    const min = minPrice ? parseFloat(minPrice) : 0;
+    const max = maxPrice ? parseFloat(maxPrice) : Infinity;
+  
+    return products.map(section => ({
+      ...section,
+      data: section.data.filter(product => product.price >= min && product.price <= max),
+    }));
+  };
+  
+  // Сортировка: купленные товары в конец списка
+  export const sortProducts = (products) => {
+    return products.map(section => ({
+      ...section,
+      data: [...section.data].sort((a, b) => a.purchased - b.purchased),
+    }));
+  };
+  
