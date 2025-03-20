@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
-    justifyContent: 'flex-start', 
+    justifyContent: 'flex-start',
   },
   input: {
     height: 40,
@@ -36,8 +36,8 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   purchased: {
-    textDecorationLine: 'line-through',  // Зачеркиваем текст
-    color: 'green',  // Можно изменить цвет, если товар куплен
+    textDecorationLine: 'line-through',
+    color: 'green',
   },
   action: {
     color: '#007BFF',
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     marginTop: 5,
   },
   disabled: {
-    color: 'gray',  // Отключаем цвет кнопки после нажатия
+    color: 'gray',
   },
   addButtonContainer: {
     position: 'absolute',
@@ -58,4 +58,4 @@ export const styles = StyleSheet.create({
     color: 'gray',
     marginTop: 20,
   },
-});
+})
