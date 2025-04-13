@@ -13,6 +13,10 @@ export default function AddProduct({ setProducts, products }) {
       alert('Wszystkie pola muszą być wypełnione!')
       return
     }
+    if (parseFloat(newProductPrice)) {
+      alert('Cena musi być liczbą!')
+      return
+    }
 
     const newProduct = {
       name: newProductName,

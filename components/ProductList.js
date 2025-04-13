@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text, SectionList, TouchableOpacity } from 'react-native'
-import Product from './Product'
+import { View, SectionList, Text } from 'react-native'
 import { styles } from '../styles/styles'
+import Product from './Product' // Компонент одного продукта
+import { useNavigation } from '@react-navigation/native'
 
 export default function ProductList({ products, setProducts }) {
-  // Wycofanie produktu z listy
+  const navigation = useNavigation()
+
   const deleteProduct = (sectionIndex, productIndex) => {
     if (!products[sectionIndex] || !products[sectionIndex].data) return
 
@@ -13,17 +15,23 @@ export default function ProductList({ products, setProducts }) {
     setProducts(updatedProducts)
   }
 
-  // Oznaka produktu jako kupiony
   const markAsPurchased = (sectionIndex, productIndex) => {
     if (!products[sectionIndex] || !products[sectionIndex].data) return
 
     let updatedProducts = [...products]
     let section = updatedProducts[sectionIndex]
 
-    let purchasedProduct = section.data.splice(productIndex, 1)[0]
-    purchasedProduct.purchased = true
+    let toggledProduct = section.data[productIndex]
+    toggledProduct.purchased = !toggledProduct.purchased
 
-    section.data.push(purchasedProduct)
+    // переместим продукт вниз или вверх списка в зависимости от состояния
+    section.data.splice(productIndex, 1)
+
+    if (toggledProduct.purchased) {
+      section.data.push(toggledProduct) // в конец если куплен
+    } else {
+      section.data.unshift(toggledProduct) // в начало если не куплен
+    }
 
     setProducts(updatedProducts)
   }
@@ -40,6 +48,9 @@ export default function ProductList({ products, setProducts }) {
                 markAsPurchased(products.indexOf(section), index)
               }
               onDelete={() => deleteProduct(products.indexOf(section), index)}
+              onPress={() =>
+                navigation.navigate('ProductDetail', { product: item })
+              }
             />
           )}
           renderSectionHeader={({ section }) => (

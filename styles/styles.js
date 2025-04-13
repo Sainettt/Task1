@@ -35,6 +35,11 @@ export const styles = StyleSheet.create({
   productText: {
     fontSize: 16,
   },
+  buttonAdd: {
+    width: 300,
+    height: 50,
+    backgroundColor: '#007BFF',
+  },
   purchased: {
     textDecorationLine: 'line-through',
     color: 'green',
@@ -57,5 +62,39 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'gray',
     marginTop: 20,
+  },
+  detailsContainer: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  detailTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: '#333',
+  },
+  detailText: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: '#555',
+  },
+  detailLabel: {
+    fontWeight: '600',
+    color: '#666',
+  },
+  detailValue: {
+    color: '#000',
+  },
+  backButton: {
+    marginTop: 30,
+    backgroundColor: '#007BFF',
+    padding: 12,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  backButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
 })
