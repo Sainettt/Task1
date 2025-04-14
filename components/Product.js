@@ -10,12 +10,8 @@ export default function Product({
 }) {
   return (
     <View
-      style={[
-        styles.product,
-        product.purchased && styles.purchasedBackground,
-      ]}
+      style={[styles.product, product.purchased && styles.purchasedBackground]}
     >
-      {/* Оборачиваем только информацию о продукте, чтобы открывать детали */}
       <TouchableOpacity onPress={onPress}>
         <Text
           style={[styles.productText, product.purchased && styles.purchased]}
@@ -24,7 +20,6 @@ export default function Product({
         </Text>
       </TouchableOpacity>
 
-      {/* Кнопки управления */}
       <TouchableOpacity onPress={onMarkAsPurchased}>
         <Text style={[styles.action, product.purchased && styles.disabled]}>
           {product.purchased ? 'Oznacz jako niekupione' : 'Kupione'}
@@ -37,4 +32,3 @@ export default function Product({
     </View>
   )
 }
-

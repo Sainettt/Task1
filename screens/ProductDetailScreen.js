@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import { styles } from '../styles/styles'
 
 export default function ProductDetails({ route, navigation }) {
@@ -29,6 +29,10 @@ export default function ProductDetails({ route, navigation }) {
           Ten produkt został już kupiony.
         </Text>
       )}
+      <Button
+        title="Back to home"
+        onPress={() => navigation.navigate('Home')}
+      />
     </View>
   )
 }

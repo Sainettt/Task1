@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, SectionList, Text } from 'react-native'
 import { styles } from '../styles/styles'
-import Product from './Product' // Компонент одного продукта
+import Product from './Product'
 import { useNavigation } from '@react-navigation/native'
 
 export default function ProductList({ products, setProducts }) {
@@ -24,13 +24,12 @@ export default function ProductList({ products, setProducts }) {
     let toggledProduct = section.data[productIndex]
     toggledProduct.purchased = !toggledProduct.purchased
 
-    // переместим продукт вниз или вверх списка в зависимости от состояния
     section.data.splice(productIndex, 1)
 
     if (toggledProduct.purchased) {
-      section.data.push(toggledProduct) // в конец если куплен
+      section.data.push(toggledProduct)
     } else {
-      section.data.unshift(toggledProduct) // в начало если не куплен
+      section.data.unshift(toggledProduct)
     }
 
     setProducts(updatedProducts)

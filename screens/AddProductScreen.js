@@ -7,12 +7,17 @@ export default function AddProductScreen({ navigation }) {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [store, setStore] = useState('')
-  const [description, setDescription] = useState('') // 💡 добавлено состояние
+  const [description, setDescription] = useState('')
   const { products, setProducts } = useContext(ProductContext)
 
   const addProduct = () => {
     if (!name || !price || !store) {
       alert('Wszystkie pola muszą być wypełnione!')
+      return
+    }
+    console.log('Dodawanie produktu...')
+    if (isNaN(parseFloat(price))) {
+      alert('Cena musi być liczbą!')
       return
     }
 

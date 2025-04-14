@@ -15,7 +15,7 @@ export default function LoginScreen({ navigation }) {
   }
 
   const handleGuestAccess = () => {
-    navigation.replace('Home') // можно заменить на push, если хочешь оставить возможность вернуться
+    navigation.replace('Home')
   }
 
   return (
@@ -40,4 +40,3 @@ export default function LoginScreen({ navigation }) {
     </View>
   )
 }
-
