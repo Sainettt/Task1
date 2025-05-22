@@ -1,4 +1,4 @@
-//Zwykle sortowanie produktów
+
 export const filterByPrice = (products, minPrice, maxPrice) => {
   const min = minPrice ? parseFloat(minPrice) : 0
   const max = maxPrice ? parseFloat(maxPrice) : Infinity
@@ -11,7 +11,7 @@ export const filterByPrice = (products, minPrice, maxPrice) => {
   }))
 }
 
-// Sortowanie kupionych produktów w koniec listy
+
 export const sortProducts = (products) => {
   return products.map((section) => ({
     ...section,

@@ -3,22 +3,24 @@ import { View, Text, TextInput, Button } from "react-native";
 import { styles } from "../styles/styles";
 import { AuthContext } from "../context/AuthContext";
 
-export default function LoginScreen({ navigation }) {
-  const { login } = useContext(AuthContext);
+export default function RegisterScreen({ navigation }) {
+  const { register } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      await login(email, password);
+      await register(email, password);
+      alert("Rejestracja zakończona sukcesem! Możesz się zalogować.");
+      navigation.navigate("Login");
     } catch (error) {
-      alert("Błąd logowania: " + error.message);
+      alert("Błąd rejestracji: " + error.message);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Logowanie</Text>
+      <Text style={styles.header}>Rejestracja</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -32,9 +34,9 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry
         onChangeText={setPassword}
       />
-      <Button title="Sign In" onPress={handleLogin} />
-      <View style={{ marginTop: 10 }}> 
-        <Button title="Sign up" color="grey" onPress={() => navigation.navigate("Register")} />
+      <Button title="Sign Up" onPress={handleRegister} />
+      <View style={{ marginTop: 10}}>
+        <Button title="Sign In" color="grey" onPress={() => navigation.navigate("Login")} />
       </View>
     </View>
   );
